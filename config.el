@@ -86,8 +86,15 @@
   (let ((new-eshell-buffer-name (generate-new-buffer-name "*eshell*")))
     (eshell)))
 
+;; Basic keybinds
 (map! :leader
+ :desc "Makes a new eshell buffer in current window"
  "e" #'make-eshell)
+
+;; Adding keybind for magit to git menu
+(map! :leader
+ :desc "open magit menu"
+ "g m" #'magit)
 
 (map! :after org
       :map org-mode-map
