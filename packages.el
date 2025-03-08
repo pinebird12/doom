@@ -51,3 +51,6 @@
 (package! evil-tutor)
 (package! ess)
 (package! ein)
+(package! spell-fu)
+(package! org-roam)
+(package! magit)

@@ -6,7 +6,7 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    '("/Users/martinhawks/org/school.org" "/Users/martinhawks/org/misc.org"))
- '(package-selected-packages '(magit lsp-java ess)))
+ '(package-selected-packages '(magit-p4 magit lsp-java ess)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
