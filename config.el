@@ -97,10 +97,18 @@
   (magit-stage-all-and-commit "FIRE FIRE PUSH SAVE IT ALL")
   (magit-push))
 
+
+;; Kill buffer and close window function
+(defun kill-and-close ()
+  (kill-buffer)
+  (evil-window-delete))
+
 ;; Basic keybinds
 (map! :leader
  :desc "Makes a new eshell buffer in current window"
- "e" #'make-eshell)
+ "e" #'make-eshell
+ :desc "kill buffer and close window"
+ "k k" #'kill-and-close)
 
 ;; Adding keybind for magit to git menu
 (map! :leader
