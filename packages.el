@@ -54,3 +54,6 @@
 (package! spell-fu)
 (package! org-roam)
 (package! magit)
+(package! readline-complete)
+(package! auctex)
+(package! conda)

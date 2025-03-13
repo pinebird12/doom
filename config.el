@@ -81,10 +81,21 @@
 
 (menu-bar--display-line-numbers-mode-relative)
 
+
+
 (defun make-eshell ()
   (interactive)
   (let ((new-eshell-buffer-name (generate-new-buffer-name "*eshell*")))
     (eshell)))
+
+(defun magit-stage-all-and-commit(message)
+  (interactive "sCommit Message: ")
+  (magit-stage-modified)
+  (magit-commit-create (list "-m" message)))
+
+(defun firefirelajnas () ;; Just in case...
+  (magit-stage-all-and-commit "FIRE FIRE PUSH SAVE IT ALL")
+  (magit-push))
 
 ;; Basic keybinds
 (map! :leader
@@ -93,8 +104,12 @@
 
 ;; Adding keybind for magit to git menu
 (map! :leader
- :desc "open magit menu"
- "g m" #'magit)
+ :desc "Open magit menu"
+ "g m" #'magit
+ :desc "Stage all changes and commit"
+ "g a" #'magit-stage-all-and-commit
+ :desc "FIRE"
+ "g f" #'firefirelajnas)
 
 (map! :after org
       :map org-mode-map
@@ -118,7 +133,10 @@
                     "@&8jgs@@%% @)&@&(88&@.-_=_-=_-=_-=_-=_.8@% &@&&8(8%@%8)(8@%8 8%@)%"
                     "@88:::&(&8&&8:::::%&`.~-_~~-~~_~-~_~-~~=.'@(&%::::%@8&8)::&#@8::::"
                     "`::::::8%@@%:::::@%&8:`.=~~-.~~-.~~=..~'8::::::::&@8:::::&8:::::'"
-                    " `::::::::::::::::::::::::::E M A C S::::::::::::::::::::::::::'"))
+                    " `::::::::::::::::::::::::::E M A C S::::::::::::::::::::::::::'"
+                    ""
+                    ""
+                    "                             welcome "))
          (longest-line (apply #'max (mapcar #'length banner))))
     (put-text-property
      (point)
@@ -130,3 +148,63 @@
      'face 'doom-dashboard-banner)))
 
 (setq +doom-dashboard-ascii-banner-fn #'mountains)
+
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+(add-hook! '+doom-dashboard-functions :append
+  (insert "\n" (+doom-dashboard--center +doom-dashboard--width "Click here for VIM")))
+;; Conda configuring
+
+(require 'conda)
+(conda-env-initialize-interactive-shells)
+
+
+;;
+;;
+;;
+;;   WANDERLUST CONFIG
+;;
+;;
+;;
+
+
+;; wanderlust
+(autoload 'wl "wl" "Wanderlust" t)
+(autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
+(autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
+
+;; IMAP
+(setq elmo-imap4-default-server "imap.gmail.com")
+(setq elmo-imap4-default-user "martinhawks8@gmail.com")
+(setq elmo-imap4-default-authenticate-type 'clear)
+(setq elmo-imap4-default-port '993)
+(setq elmo-imap4-default-stream-type 'ssl)
+
+(setq elmo-imap4-use-modified-utf7 t)
+
+;; SMTP
+(setq wl-smtp-connection-type 'starttls)
+(setq wl-smtp-posting-port 587)
+(setq wl-smtp-authenticate-type "plain")
+(setq wl-smtp-posting-user "martinhawks8")
+(setq wl-smtp-posting-server "smtp.gmail.com")
+(setq wl-local-domain "gmail.com")
+
+(setq wl-default-folder "%inbox")
+(setq wl-default-spec "%")
+(setq wl-draft-folder "%[Gmail]/Drafts") ; Gmail IMAP
+(setq wl-trash-folder "%[Gmail]/Trash")
+
+(setq wl-folder-check-async t)
+
+(setq elmo-imap4-use-modified-utf7 t)
+
+(autoload 'wl-user-agent-compose "wl-draft" nil t)
+(if (boundp 'mail-user-agent)
+    (setq mail-user-agent 'wl-user-agent))
+(if (fboundp 'define-mail-user-agent)
+    (define-mail-user-agent
+      'wl-user-agent
+      'wl-user-agent-compose
+      'wl-draft-send
+      'wl-draft-kill
+      'mail-send-hook))
