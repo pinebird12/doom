@@ -75,13 +75,17 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; config for org babel and src block execution
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)))
 
+;; Default to reletive line numbering
+
 (menu-bar--display-line-numbers-mode-relative)
 
-
+;; Custom functions for keybinds
 
 (defun make-eshell ()
   (interactive)
@@ -100,6 +104,7 @@
 
 ;; Kill buffer and close window function
 (defun kill-and-close ()
+  (interactive)
   (kill-buffer)
   (evil-window-delete))
 
@@ -107,8 +112,9 @@
 (map! :leader
  :desc "Makes a new eshell buffer in current window"
  "e" #'make-eshell
- :desc "kill buffer and close window"
- "k k" #'kill-and-close)
+ :desc "kill buffer and window"
+ "k k" #'kill-and-close
+ "l l" #'toggle-shell-escape)
 
 ;; Adding keybind for magit to git menu
 (map! :leader
@@ -125,6 +131,22 @@
       "f" #'org-fold-hide-sublevels
       "e" #'org-fold-show-all)
 
+
+;; Adding thing for minted with tex
+
+(defun toggle-shell-escape()
+       "Toggle TeX-command-extra-options variable between ' ' and '-shell-escape'"
+       (interactive)
+       (message "TeX-command-extra-option is now %s"
+                (setq TeX-command-extra-options
+              (if (string-empty-p TeX-command-extra-options)
+                  "-shell-escape"
+                ""))))
+
+
+;; Start screen config
+
+(setq major-mode-remap-alist major-mode-remap-defaults)
 
 (setq org-confirm-babel-evaluate nil)
 (defun mountains ()
@@ -144,7 +166,7 @@
                     " `::::::::::::::::::::::::::E M A C S::::::::::::::::::::::::::'"
                     ""
                     ""
-                    "                             welcome "))
+                    "      It's not a problem, it's the potential for a solution "))
          (longest-line (apply #'max (mapcar #'length banner))))
     (put-text-property
      (point)
@@ -160,17 +182,21 @@
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 (add-hook! '+doom-dashboard-functions :append
   (insert "\n" (+doom-dashboard--center +doom-dashboard--width "Click here for VIM")))
+
+
 ;; Conda configuring
 
 (require 'conda)
 (conda-env-initialize-interactive-shells)
 
+;; pylsp config
+;; TODO figure out pylsp server
 
 ;;
 ;;
 ;;
 ;;   WANDERLUST CONFIG
-;;
+;;   TODO: Make work
 ;;
 ;;
 
