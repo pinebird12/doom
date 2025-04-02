@@ -79,7 +79,8 @@
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((python . t)))
+ '((python . t))
+ '((R . t)))
 
 ;; Default to reletive line numbering
 
@@ -166,7 +167,7 @@
                     " `::::::::::::::::::::::::::E M A C S::::::::::::::::::::::::::'"
                     ""
                     ""
-                    "      It's not a problem, it's the potential for a solution "))
+                    "            Thesius wouldn't have sailed far in that"))
          (longest-line (apply #'max (mapcar #'length banner))))
     (put-text-property
      (point)
