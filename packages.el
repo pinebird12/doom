@@ -56,4 +56,3 @@
 (package! magit)
 (package! readline-complete)
 (package! auctex)
-(package! minesweeper)

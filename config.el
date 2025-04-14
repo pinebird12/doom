@@ -82,10 +82,40 @@
  '((python . t))
  '((R . t)))
 
-;; Default to reletive line numbering
+;; Additional config for exporting using minted
+(add-to-list 'org-latex-packages-alist '("" "minted" nil))
+(setq org-latex-src-block-backend 'minted)
 
+;; Function to make AucTeX compile with minted
+(defun my/org-export-add-lines (contents backend info)
+  "Add custom lines to the exported output."
+  (when (org-export-derived-backend-p backend 'latex)
+    (concat contents "\n\n"
+            "%%% Local Variables: \n"
+            "%%% TeX-command-extra-options: \"-shell-escape\"\n"
+            "%%% End: \n")))
+
+(add-hook 'org-export-filter-body-functions #'my/org-export-add-lines)
+
+;; Default to reletive line numbering
 (menu-bar--display-line-numbers-mode-relative)
 
+;; default enable word wrapping in web mode
+(defun activate-word-wrap ()
+  (s-word-wrap 't))
+(add-hook 'Web-mode-hook #'activate-word-wrap)
+
+;; change default doc-view dpi
+(setq doc-view-resolution '(400))
+
+;; Get ox-ravel working?
+(require 'ox-ravel)
+;;; Requisites and Declarations
+(eval-when-compile (require 'cl-lib))
+(require 'ox)
+(require 'ox-md)
+
+(declare-function org-babel-expand-body:R "ob-R.el" )
 ;; Custom functions for keybinds
 
 (defun make-eshell ()
@@ -108,6 +138,7 @@
   (interactive)
   (kill-buffer)
   (evil-window-delete))
+
 
 ;; Basic keybinds
 (map! :leader
@@ -167,7 +198,7 @@
                     " `::::::::::::::::::::::::::E M A C S::::::::::::::::::::::::::'"
                     ""
                     ""
-                    "            Thesius wouldn't have sailed far in that"))
+                    "            Thesius wouldn't have sailed far in this"))
          (longest-line (apply #'max (mapcar #'length banner))))
     (put-text-property
      (point)
