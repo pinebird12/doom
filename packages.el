@@ -56,3 +56,4 @@
 (package! magit)
 (package! readline-complete)
 (package! auctex)
+(package! treemacs-projectile)

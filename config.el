@@ -32,7 +32,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-dark+)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -75,6 +75,9 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; I dont write with double spaced sentences...
+(setq sentence-end-double-space nil)
+
 ;; config for org babel and src block execution
 
 (org-babel-do-load-languages
@@ -106,16 +109,8 @@
 (add-hook 'Web-mode-hook #'activate-word-wrap)
 
 ;; change default doc-view dpi
-(setq doc-view-resolution '(400))
+;; (setq doc-view-resolution '(300))
 
-;; Get ox-ravel working?
-(require 'ox-ravel)
-;;; Requisites and Declarations
-(eval-when-compile (require 'cl-lib))
-(require 'ox)
-(require 'ox-md)
-
-(declare-function org-babel-expand-body:R "ob-R.el" )
 ;; Custom functions for keybinds
 
 (defun make-eshell ()
@@ -142,16 +137,17 @@
 
 ;; Basic keybinds
 (map! :leader
- :desc "Makes a new eshell buffer in current window"
- "e" #'make-eshell
  :desc "kill buffer and window"
  "k k" #'kill-and-close
  "l l" #'toggle-shell-escape)
 
+;; call last kbd macro
+(map! :leader
+      :desc "call last macro"
+      "d k" #'call-last-kbd-macro)
+
 ;; Adding keybind for magit to git menu
 (map! :leader
- :desc "Open magit menu"
- "g m" #'magit
  :desc "Stage all changes and commit"
  "g a" #'magit-stage-all-and-commit
  :desc "FIRE"
@@ -162,6 +158,12 @@
       :prefix "C-c"
       "f" #'org-fold-hide-sublevels
       "e" #'org-fold-show-all)
+
+;; treemacs keybinds
+(map! :leader
+    :desc "treemacs"
+    "o e" #'treemacs)
+
 
 
 ;; Adding thing for minted with tex
@@ -184,8 +186,8 @@
 (defun mountains ()
   (let* ((banner '( "    .                  .-.    .  _   *     _   ."
                     "           *          /   \\     ((       _/ \\       *    ."
-                    "         _    .   .--'\\/\\_ \\     `      /    \\  *    ___"
-                    "     *  / \\_    _/ ^      \\/\\'__        /\\/\\  /\\  __/   \\ *"
+                    "         _    .   .--'\\/\\_ \\     `      /    \\  *   ___"
+                    "     *  / \\_    _/ ^      \\/\\'__       /\\/\\  /\\  __/   \\ *"
                     "       /    \\  /    .'   _/  /  \\  *' /    \\/  \\/ .`'\\_/\\   ."
                     "  .   /\\/\\  /\\/ :' __  ^/  ^/    `--./.'  ^  `-.\\ _    _:\\ _"
                     "     /    \\/  \\  _/  \\-' __/.' ^ _   \\_   .'\\   _/ \\ .  __/ \\ "
@@ -220,7 +222,8 @@
 
 (require 'conda)
 (conda-env-initialize-interactive-shells)
-
+(custom-set-variables
+ '(conda-anaconda-home "/opt/homebrew/Caskroom/miniconda/base"))
 ;; pylsp config
 ;; TODO figure out pylsp server
 
