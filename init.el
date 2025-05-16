@@ -80,8 +80,8 @@
        term              ; basic terminal emulator for Emacs
        vterm             ; the best terminal emulation in Emacs
 
-       ;; :checkers
-       ;; syntax              ; tasing you for every semicolon you forget
+       :checkers
+       syntax              ; tasing you for every semicolon you forget
        ;; ;;(spell +flyspell) ; tasing you for misspelling mispelling
        ;; ;;grammar           ; tasing grammar mistake every you make
 
@@ -100,7 +100,7 @@
        magit             ; a git porcelain for Emacs
        ;; ;;make              ; run make tasks from Emacs
        ;; ;;pass              ; password manager for nerds
-       ;; ;;pdf               ; pdf enhancements
+       pdf               ; pdf enhancements
        ;; ;;prodigy           ; FIXME managing external services & code builders
        ;; ;;terraform         ; infrastructure as code
        ;; ;;tmux              ; an API for interacting with tmux
@@ -120,7 +120,7 @@
        ;; ;;coq               ; proofs-as-programs
        ;; ;;crystal           ; ruby at the speed of c
        ;; ;;csharp            ; unity, .NET, and mono shenanigans
-       ;; ;;data              ; config/data formats
+       data              ; config/data formats
        ;; ;;(dart +flutter)   ; paint ui and not much else
        ;; ;;dhall
        ;; ;;elixir            ; erlang done right
@@ -153,7 +153,7 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        org               ; organize your plain life in plain text
-       php               ; perl's insecure younger brother
+       ;; php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;graphviz          ; diagrams for confusing yourself even more
        ;;purescript        ; javascript, but functional
@@ -173,7 +173,7 @@
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
        (web +lsp)               ; the tubes
-       ;;yaml              ; JSON, but readable
+       yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
 
        :email

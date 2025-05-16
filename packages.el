@@ -57,3 +57,5 @@
 (package! readline-complete)
 (package! auctex)
 (package! treemacs-projectile)
+(package! ox-ipython :recipe
+  (:local-repo "~/.config/user/ox-ipynb/"))
