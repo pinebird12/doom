@@ -85,6 +85,17 @@
  '((python . t))
  '((R . t)))
 
+;; Function to archive (which autofolds) all DONE taged headers
+(defun org-archive-done()
+  "Archive finished tasks."
+  (interactive)
+  (org-map-entries
+  '(org-toggle-tag "ARCHIVE" 'on )
+  "/+DONE" 'file 'archive 'comment)
+  (org-map-entries '(org-fold-hide-subtree)
+                "ARCHIVE" 'file))
+
+
 ;; Additional config for exporting using minted
 (add-to-list 'org-latex-packages-alist '("" "minted" nil))
 (setq org-latex-src-block-backend 'minted)
@@ -101,7 +112,8 @@
 (add-hook 'org-export-filter-body-functions #'my/org-export-add-lines)
 
 ;; Default to reletive line numbering
-(menu-bar--display-line-numbers-mode-relative)
+;; (menu-bar--display-line-numbers-mode-relative)
+(setq display-line-numbers-type 'visual)
 
 ;; default enable word wrapping in web mode
 (defun activate-word-wrap ()
@@ -153,17 +165,23 @@
  :desc "FIRE"
  "g f" #'firefirelajnas)
 
+;; org keybinds
 (map! :after org
       :map org-mode-map
       :prefix "C-c"
       "f" #'org-fold-hide-sublevels
       "e" #'org-fold-show-all)
 
+(map! :after org
+      :map org-mode-map
+      :leader
+      "m s x" #'org-archive-done)
+
+
 ;; treemacs keybinds
 (map! :leader
     :desc "treemacs"
     "o e" #'treemacs)
-
 
 
 ;; Adding thing for minted with tex
